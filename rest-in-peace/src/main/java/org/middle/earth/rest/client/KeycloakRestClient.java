@@ -29,7 +29,7 @@ public interface KeycloakRestClient {
   @POST
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("/realms/master/protocol/openid-connect/token")
+  @Path("/realms/middle-earth/protocol/openid-connect/token")
   KeycloakTokenDto getAdminToken(@FormParam("client_id") String clientId,
                                  @FormParam("username") String username,
                                  @FormParam("password") String password,
@@ -39,7 +39,7 @@ public interface KeycloakRestClient {
   @POST
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("/realms/master/protocol/openid-connect/revoke")
+  @Path("/realms/middle-earth/protocol/openid-connect/revoke")
   KeycloakTokenDto revokeToken(@FormParam("client_id") String clientId,
                                @FormParam("token_type_hint") String tokenTypeHint,
                                @FormParam("token") String token);
