@@ -9,12 +9,12 @@ import org.middle.earth.service.DwarfService;
 @Path("/api/dwarf/unsecured")
 public class DwarfUnsecuredResource {
 
-  @Inject
-  DwarfService dwarfService;
+    @Inject
+    DwarfService dwarfService;
 
-  @GET
-  @Path("pay-me")
-  public int payMe(@QueryParam("age") int age, @QueryParam("waist") int waist) {
-    return dwarfService.payMe(age, waist);
-  }
+    @GET
+    @Path("pay-me")
+    public String payMe(@QueryParam("age") int age, @QueryParam("waist") int waist) {
+        return dwarfService.payMe(age, waist);
+    }
 }

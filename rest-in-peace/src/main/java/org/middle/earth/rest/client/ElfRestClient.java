@@ -9,11 +9,11 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @RegisterRestClient(configKey = "elf-api")
 @AccessToken
 public interface ElfRestClient {
-  @GET
-  @Path("/api/elf/secured/pay-me")
-  int securedPayMe();
+    @GET
+    @Path("/api/elf/secured/pay-me")
+    String securedPayMe();
 
-  @GET
-  @Path("/api/elf/unsecured/pay-me")
-  int unsecuredPayMe(@QueryParam("age") int age, @QueryParam("waist") int waist);
+    @GET
+    @Path("/api/elf/unsecured/pay-me")
+    String unsecuredPayMe(@QueryParam("age") int age, @QueryParam("waist") int waist);
 }

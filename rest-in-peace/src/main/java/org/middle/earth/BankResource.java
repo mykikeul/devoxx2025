@@ -20,46 +20,46 @@ import org.middle.earth.rest.client.HobbitRestClient;
 @Authenticated
 public class BankResource {
 
-  @Inject
-  @RestClient
-  HobbitRestClient hobbitRestClient;
+    @Inject
+    @RestClient
+    HobbitRestClient hobbitRestClient;
 
-  @Inject
-  @RestClient
-  DwarfRestClient dwarfRestClient;
+    @Inject
+    @RestClient
+    DwarfRestClient dwarfRestClient;
 
-  @Inject
-  @RestClient
-  ElfRestClient elfRestClient;
+    @Inject
+    @RestClient
+    ElfRestClient elfRestClient;
 
-  @Inject
-  SecurityIdentity identity;
+    @Inject
+    SecurityIdentity identity;
 
-  @GET
-  @Produces(MediaType.TEXT_PLAIN)
-  @Path("unsecure/pay-me")
-  public String payMe(@QueryParam("race") RaceType raceType, @QueryParam("age") int age, @QueryParam("waist") int waist) {
-    int pension = switch (raceType) {
-      case HOBBIT -> hobbitRestClient.unsecuredPayMe(age, waist);
-      case DWARF -> dwarfRestClient.unsecuredPayMe(age, waist);
-      case ELF -> elfRestClient.unsecuredPayMe(age, waist);
-      default -> throw new IllegalStateException("Unexpected value: " + raceType);
-    };
-    return pension > 0 ? "Go to party with " + pension + " bucks!" : "Keep working hard!";
-  }
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("unsecure/pay-me")
+    public String payMe(@QueryParam("race") RaceType raceType, @QueryParam("age") int age, @QueryParam("waist") int waist, @QueryParam("size") int size) {
+        String message = switch (raceType) {
+            case HOBBIT -> hobbitRestClient.unsecuredPayMe(age, size);
+            case DWARF -> dwarfRestClient.unsecuredPayMe(age, waist);
+            case ELF -> elfRestClient.unsecuredPayMe(age, waist);
+            default -> throw new IllegalStateException("Unexpected value: " + raceType);
+        };
+        return message;
+    }
 
-  @GET
-  @Produces(MediaType.TEXT_PLAIN)
-  @Path("secure/pay-me")
-  public String payMe(@Context SecurityContext sec) {
-    OidcJwtCallerPrincipal principal = (OidcJwtCallerPrincipal) identity.getPrincipal();
-    String race = (String) principal.getClaims().getClaimValue("race");
-    int pension = switch (race) {
-      case "HOBBIT" -> hobbitRestClient.securedPayMe();
-      case "DWARF" -> dwarfRestClient.securedPayMe();
-      case "ELF" -> elfRestClient.securedPayMe();
-      default -> throw new IllegalStateException("Unexpected value: " + race);
-    };
-    return pension > 0 ? "Go to party with " + pension + " bucks!" : "Keep working hard!";
-  }
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("secure/pay-me")
+    public String payMe(@Context SecurityContext sec) {
+        OidcJwtCallerPrincipal principal = (OidcJwtCallerPrincipal) identity.getPrincipal();
+        String race = (String) principal.getClaims().getClaimValue("race");
+        String message = switch (race) {
+            case "HOBBIT" -> hobbitRestClient.securedPayMe();
+            case "DWARF" -> dwarfRestClient.securedPayMe();
+            case "ELF" -> elfRestClient.securedPayMe();
+            default -> throw new IllegalStateException("Unexpected value: " + race);
+        };
+        return message;
+    }
 }

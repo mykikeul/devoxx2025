@@ -9,11 +9,11 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @RegisterRestClient(configKey = "hobbit-api")
 @AccessToken
 public interface HobbitRestClient {
-  @GET
-  @Path("/api/hobbit/secured/pay-me")
-  int securedPayMe();
+    @GET
+    @Path("/api/hobbit/secured/pay-me")
+    String securedPayMe();
 
-  @GET
-  @Path("/api/hobbit/unsecured/pay-me")
-  int unsecuredPayMe(@QueryParam("age") int age, @QueryParam("waist") int waist);
+    @GET
+    @Path("/api/hobbit/unsecured/pay-me")
+    String unsecuredPayMe(@QueryParam("age") int age, @QueryParam("size") int size);
 }

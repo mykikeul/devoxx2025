@@ -9,11 +9,11 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @RegisterRestClient(configKey = "dwarf-api")
 @AccessToken
 public interface DwarfRestClient {
-  @GET
-  @Path("/api/dwarf/secured/pay-me")
-  int securedPayMe();
+    @GET
+    @Path("/api/dwarf/secured/pay-me")
+    String securedPayMe();
 
-  @GET
-  @Path("/api/dwarf/unsecured/pay-me")
-  int unsecuredPayMe(@QueryParam("age") int age, @QueryParam("waist") int waist);
+    @GET
+    @Path("/api/dwarf/unsecured/pay-me")
+    String unsecuredPayMe(@QueryParam("age") int age, @QueryParam("waist") int waist);
 }
